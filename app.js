@@ -831,7 +831,7 @@
               </span>
               <h3 class="text-xl sm:text-2xl font-extrabold mt-2">Two-Way Prepositions (Wechselpräpositionen)</h3>
               <p class="text-sm text-slate-300 max-w-xl">
-                The golden rule: <strong>Wohin? (Movement / Destination) $\rightarrow$ Akkusativ</strong> versus <strong>Wo? (Stationary Location) $\rightarrow$ Dativ</strong>.
+                The golden rule: <strong>Wohin? (Movement / Destination) → Akkusativ</strong> versus <strong>Wo? (Stationary Location) → Dativ</strong>.
               </p>
             </div>
 
@@ -843,7 +843,7 @@
                   ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' 
                   : 'text-slate-300 hover:text-white'}"
               >
-                🏃 Wohin? (Movement $\rightarrow$ Akkusativ)
+                🏃 Wohin? (Movement → Akkusativ)
               </button>
 
               <button 
@@ -852,7 +852,7 @@
                   ? 'bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/30' 
                   : 'text-slate-300 hover:text-white'}"
               >
-                📍 Wo? (Location $\rightarrow$ Dativ)
+                📍 Wo? (Location → Dativ)
               </button>
             </div>
           </div>
@@ -978,7 +978,7 @@
               <div class="grid grid-cols-2 gap-2 text-xs font-mono">
                 ${preps.pronominal_adverbs.examples.map(ex => `
                   <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <span class="text-brand-600 dark:text-brand-400 font-bold">${ex.question}</span> $\rightarrow$ <span class="text-slate-800 dark:text-slate-200 font-bold">${ex.answer}</span>
+                    <span class="text-brand-600 dark:text-brand-400 font-bold">${ex.question}</span> → <span class="text-slate-800 dark:text-slate-200 font-bold">${ex.answer}</span>
                   </div>
                 `).join('')}
               </div>
@@ -1144,7 +1144,7 @@
                 <span class="px-2 py-0.5 rounded text-xs font-bold uppercase bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">Dual Meaning Prefixes</span>
               </div>
               <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1">Stress determines the meaning!</h3>
-              <p class="text-xs text-slate-500">Stressed on prefix $\rightarrow$ Separable. Stressed on root $\rightarrow$ Inseparable.</p>
+              <p class="text-xs text-slate-500">Stressed on prefix → Separable. Stressed on root → Inseparable.</p>
             </div>
 
             <div class="space-y-2 text-xs">
@@ -1415,7 +1415,7 @@
                 <span class="text-xs font-bold text-slate-400 uppercase">${d.formal_prep}</span>
                 <div class="text-sm font-bold text-slate-900 dark:text-white">${d.ort}</div>
                 <div class="text-xs text-brand-600 dark:text-brand-400 font-extrabold bg-brand-50 dark:bg-brand-950/60 py-1 px-2 rounded-lg border border-brand-200 dark:border-brand-800">
-                  $\rightarrow$ ${d.richtung}
+                  → ${d.richtung}
                 </div>
               </div>
             `).join('')}
