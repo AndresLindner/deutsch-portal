@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deutsch Portal • Hanan Notes</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇩🇪</text></svg>">
+  
+  <!-- Tailwind CSS CDN with configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.setTab('vocab')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-bold text-lg">
+            DE
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-slate-900 via-brand-700 to-indigo-600 dark:from-white dark:via-brand-300 dark:to-indigo-400 bg-clip-text text-transparent">
+                Deutsch Portal
+              </span>
+              <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-brand-100 text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 border border-brand-200 dark:border-brand-800">
+                Hanan Notes
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Interactive Language Portal • 870+ Words &amp; Cheatsheet</p>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden md:flex space-x-1 lg:space-x-2" id="desktop-nav">
+          <button onclick="app.setTab('vocab')" id="nav-vocab" class="px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            <span>Vokabular</span>
+            <span id="nav-vocab-badge" class="ml-1.5 px-2 py-0.5 text-xs rounded-full bg-slate-200 dark:bg-slate-700 font-semibold">870</span>
+          </button>
+          
+          <button onclick="app.setTab('grammar')" id="nav-grammar" class="px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>Grammatik</span>
+          </button>
+
+          <button onclick="app.setTab('quiz')" id="nav-quiz" class="px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="target" class="w-4 h-4"></i>
+            <span>Practice &amp; Quiz</span>
+          </button>
+
+          <button onclick="app.setTab('journal')" id="nav-journal" class="px-3.5 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="file-edit" class="w-4 h-4"></i>
+            <span>Journal &amp; Homework</span>
+          </button>
+        </nav>
+
+        <!-- Right Action Controls (Theme, Speech Speed, Starred) -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          
+          <!-- Audio Speed Selector -->
+          <div class="hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700" title="Audio Speed">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5 text-brand-500"></i>
+            <select id="speech-rate-select" onchange="app.setSpeechRate(this.value)" class="bg-transparent border-none outline-none font-medium cursor-pointer pr-1 text-slate-700 dark:text-slate-200">
+              <option value="0.8">0.8x (Slower)</option>
+              <option value="0.95" selected>1.0x (Normal)</option>
+              <option value="1.15">1.2x (Native)</option>
+            </select>
+          </div>
+
+          <!-- Starred Words Quick Filter -->
+          <button onclick="app.toggleStarredFilter()" id="btn-starred-filter" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700 relative" title="View Starred Words">
+            <i data-lucide="star" class="w-5 h-5"></i>
+            <span id="starred-counter" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Dark/Light Theme Toggle -->
+          <button onclick="app.toggleTheme()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700" title="Toggle Theme">
+            <i id="theme-icon" data-lucide="moon" class="w-5 h-5"></i>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button onclick="app.toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 px-4 pt-3 pb-4 space-y-1 bg-white dark:bg-slate-900 transition-all">
+      <button onclick="app.setTab('vocab'); app.toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium flex items-center justify-between text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="book-open" class="w-5 h-5 text-brand-500"></i>
+          <span>Vokabular Explorer</span>
+        </div>
+        <span class="px-2 py-0.5 text-xs rounded-full bg-slate-200 dark:bg-slate-700">870</span>
+      </button>
+
+      <button onclick="app.setTab('grammar'); app.toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <i data-lucide="sparkles" class="w-5 h-5 text-indigo-500"></i>
+        <span>Grammatik-Cheatsheet</span>
+      </button>
+
+      <button onclick="app.setTab('quiz'); app.toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <i data-lucide="target" class="w-5 h-5 text-emerald-500"></i>
+        <span>Practice &amp; Quiz Arena</span>
+      </button>
+
+      <button onclick="app.setTab('journal'); app.toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <i data-lucide="file-edit" class="w-5 h-5 text-amber-500"></i>
+        <span>Journal &amp; Homework</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6" id="app-container">
+    <!-- Rendered dynamically by app.js -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 bg-white dark:bg-slate-900 text-center text-xs text-slate-500 dark:text-slate-400 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+      <div class="flex items-center space-x-2">
+        <span class="font-semibold text-slate-700 dark:text-slate-300">Deutsch Portal</span>
+        <span>•</span>
+        <span>Built from Hanan's Personal Curriculum &amp; Notes</span>
+      </div>
+      <div class="flex items-center space-x-4 text-slate-400">
+        <span>Press <kbd class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-[10px]">Space</kbd> to flip flashcards</span>
+        <span>•</span>
+        <span>Native Speech: de-DE</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Data Files -->
+  <script src="data/vocab.js"></script>
+  <script src="data/grammar.js"></script>
+  <script src="data/quizzes.js"></script>
+  <script src="data/journals.js"></script>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+
+  <script>
+    window.addEventListener('load', function() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
